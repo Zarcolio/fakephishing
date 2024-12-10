@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Testing Page</title>
+    <meta name="description" content="Congratulations! You've won a free prize! Click below to claim your reward now.">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .phishing-link {
+            color: red;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            background-color: #000;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        // Simulating suspicious JavaScript behavior
+        const fakeEncoded = "VGhpcyBpcyBhIGhhcm1sZXNzIHRlc3QgcGFnZS4="; // Base64 string
+        console.log("Decoded Content:", atob(fakeEncoded)); // Logs harmless message
+
+        // Fake redirection simulation
+        function fakeRedirect() {
+            alert("This would normally redirect to another page.");
+        }
+    </script>
+</head>
+<body>
+    <h1>🎉 Congratulations! 🎉</h1>
+    <p>You've won a <strong>free smartphone!</strong></p>
+    <p>Click below to claim your prize:</p>
+    
+    <!-- Suspicious-looking link -->
+    <a href="http://nonexistentdomain.fakeprizes.com/claim?user=12345&auth=abc123xyz098"
+       class="phishing-link"
+       onmouseover="document.getElementById('tooltip').style.display = 'block';"
+       onmouseout="document.getElementById('tooltip').style.display = 'none';">
+       Claim Your Free Prize Now
+    </a>
+    <div id="tooltip" class="tooltip">
+        Suspicious: http://nonexistentdomain.fakeprizes.com/...
+    </div>
+
+    <!-- Fake obfuscation -->
+    <div class="hidden">
+        <script>
+            var encodedString = "U29mdHdhcmUgVGVzdGluZyBDb250ZW50";
+            console.log("Testing Decoded:", atob(encodedString));
+        </script>
+    </div>
+
+    <!-- Simulated login form -->
+    <form action="http://nonexistentdomain.fakeprizes.com/login" method="POST">
+        <p>Enter your details to verify your prize:</p>
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" placeholder="yourname@example.com" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required><br><br>
+        <button type="button" onclick="fakeRedirect()">Submit</button>
+    </form>
+
+    <p><strong>Disclaimer:</strong> This page is for <u>harmless security testing only</u>. No sensitive data will be captured or transmitted.</p>
+
+    <script>
+        // Simulated network request
+        const fakeRequest = new XMLHttpRequest();
+        fakeRequest.open("GET", "http://nonexistentdomain.fakeprizes.com/api/test", true);
+        fakeRequest.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                console.log("Fake API Response", this.responseText);
+            }
+        };
+        fakeRequest.send();
+    </script>
+</body>
+</html>
